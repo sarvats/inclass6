@@ -42,7 +42,7 @@ class Counter with ChangeNotifier {
   }
 
   void decrement() {
-    if (value > 0) { // Prevent decrementing below zero
+    if (value > 0) { 
       value -= 1;
       notifyListeners();
     }
@@ -93,7 +93,7 @@ class MyHomePage extends StatelessWidget {
         title: const Text('Flutter Demo Home Page'),
       ),
       body: Container(
-        color: counter.backgroundColor, // Set background color
+        color: counter.backgroundColor, 
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -105,34 +105,39 @@ class MyHomePage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                counter.milestoneMessage, // Display milestone message
+                counter.milestoneMessage, 
                 style: const TextStyle(fontSize: 24),
+              ),
+              const SizedBox(height: 40), 
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center, 
+                children: [
+                  
+                  ElevatedButton(
+                    onPressed: () {
+                      counter.decrement();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ),
+                    child: const Text('Reduce Age'),
+                  ),
+                  const SizedBox(width: 10), 
+                  
+                  ElevatedButton(
+                    onPressed: () {
+                      counter.increment();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    ),
+                    child: const Text('Increase Age'),
+                  ),
+                ],
               ),
             ],
           ),
         ),
-      ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          // Decrement Button
-          FloatingActionButton(
-            onPressed: () {
-              counter.decrement();
-            },
-            tooltip: 'Decrement',
-            child: const Icon(Icons.remove),
-          ),
-          const SizedBox(width: 10), // Add spacing between buttons
-          // Increment Button
-          FloatingActionButton(
-            onPressed: () {
-              counter.increment();
-            },
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-        ],
       ),
     );
   }
