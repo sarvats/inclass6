@@ -41,6 +41,13 @@ class Counter with ChangeNotifier {
     notifyListeners();
   }
 
+  void decrement() {
+    if (value > 0) { // Prevent decrementing below zero
+      value -= 1;
+      notifyListeners();
+    }
+  }
+
   String get milestoneMessage {
     if (value >= 0 && value <= 12) return "You're a child!";
     if (value >= 13 && value <= 19) return "Teenager time!";
@@ -105,14 +112,28 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          counter.increment();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // Decrement Button
+          FloatingActionButton(
+            onPressed: () {
+              counter.decrement();
+            },
+            tooltip: 'Decrement',
+            child: const Icon(Icons.remove),
+          ),
+          const SizedBox(width: 10), // Add spacing between buttons
+          // Increment Button
+          FloatingActionButton(
+            onPressed: () {
+              counter.increment();
+            },
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }
 }
-
